@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmailJS Example</title>
+    <style>
+        body{
+            background-color: aliceblue;
+            width:100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #form{
+            padding: 40px 40px 20px;
+            background-color: #fff;
+            filter: drop-shadow(10px 10px 10px black);
+            border-radius: 10px;
+        }
+        .field {
+            margin-bottom: 10px;
+        }
+        .field label {
+            display: block;
+            font-size: 12px;
+            color: #777;
+            padding: 3px;
+        }
+        .field input {
+             display: block;
+             border:none;
+             outline: none;
+             border-bottom: 1px solid #0e140d;
+             width: 250px;
+             padding: 10px 10px;
+             line-height: 1.5;
+             font-size: 14px;
+        }
+        input[type="submit"] {
+            display: block;
+            padding: 6px 30px;
+            font-size: 14px;
+            background-color: #4460AA;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<form id="form">
+    <h1>Hey , 😎</h1>
+    <div class="field">
+  
+        <input type="text" name="name" id="name" required placeholder="Enter your name">
+    </div>
+    <div class="field">
+   
+        <input type="email" name="reply_to" id="reply_to" required placeholder="example@example.com">
+    </div>
+    <input type="submit" id="button" value="Wish Email">
+</form>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+    emailjs.init('ePTQ4rwRdsWRHK9EL');
+</script>
+
+<script>
+    const btn = document.getElementById('button');
+
+    document.getElementById('form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Get the current date
+        const currentDate = new Date();
+        const targetDate = new Date('2024-10-31');
+
+      
+        if (currentDate.toDateString() === targetDate.toDateString()) {
+            btn.value = 'Sending...';
+
+            const serviceID = 'default_service'; 
+            const templateID = 'template_6g2mkbe'; 
+
+            emailjs.sendForm(serviceID, templateID, this)
+                .then(() => {
+                    btn.value = 'Send Email';
+                    alert('Sent!');
+                }, (err) => {
+                    btn.value = 'Send Email';
+                    alert(JSON.stringify(err));
+                });
+        } else {
+            alert('Thanks For Your Registration Happy Diwali.');
+        }
+    });
+</script>
+
+</body>
+</html>
